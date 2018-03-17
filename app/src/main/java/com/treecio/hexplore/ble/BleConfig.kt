@@ -12,7 +12,7 @@ object BleConfig {
 
     const val MAX_BYTES = 9
 
-    const val TIME_UNIT = 500
+    const val TIME_UNIT = 700
 
     val thresholdDateLambda: Calendar.() -> Unit = { add(Calendar.SECOND, -10) }
 

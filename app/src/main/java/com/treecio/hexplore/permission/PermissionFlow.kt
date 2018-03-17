@@ -1,4 +1,4 @@
-package com.treecio.summapp.permission
+package com.treecio.hexplore.permission
 
 import android.content.Context
 import android.content.Intent

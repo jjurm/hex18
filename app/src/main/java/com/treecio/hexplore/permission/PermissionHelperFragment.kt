@@ -1,8 +1,7 @@
-package com.treecio.summapp.permission
+package com.treecio.hexplore.permission
 
 import android.content.Intent
 import android.support.v4.app.Fragment
-import com.crashlytics.android.Crashlytics
 import timber.log.Timber
 
 /**
@@ -23,7 +22,6 @@ class PermissionHelperFragment : Fragment() {
             // might become null after screen rotation?
             // https://fabric.io/treecio/android/apps/com.treecio.summapp.beta/issues/5a78e7148cb3c2fa63626b43
             Timber.w("onRequestPermissionsResult: permissionFlow is null")
-            Crashlytics.log("onRequestPermissionsResult: permissionFlow is null")
         }
         permissionFlow!!.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
