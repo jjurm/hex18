@@ -114,6 +114,7 @@ class NetworkClient(val context: Context) {
                 val usr = (select from User::class where User_Table.shortId.eq(blob)).list.first()
                 usr.name = profileInfo.name
                 usr.profilePhoto = profileInfo.image_url
+                usr.profileUrl = profileInfo.facebook_url
                 usr.occupation = profileInfo.occupation
                 usr.save()
                 EventBus.getDefault().post(UsersReloadNeededEvent())
@@ -143,6 +144,7 @@ class NetworkClient(val context: Context) {
                 val id: String,
                 val name: String,
                 val image_url: String,
+                val facebook_url: String,
                 val occupation: String,
                 val description: String?
         )

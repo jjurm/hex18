@@ -18,7 +18,9 @@ class User (
         @Column var lastHandshake: Date? = null,
         @Column var name: String? = null,
         @Column var profilePhoto: String? = null,
-        @Column var occupation: String? = null
+        @Column var occupation: String? = null,
+        @Column var profileUrl: String? = null
+
 
 ) : BaseModel() {
 
