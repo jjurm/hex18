@@ -6,4 +6,16 @@
     <string name="btn_login">LOG IN WITH FACEBOOK</string>
     <string name="preference_device_id">preference_device_id</string>
     <string name="preferences_global">preferences_global</string>
+
+    <!-- PERMISSIONS -->
+    <string name="permissions_needed">Permissions needed</string>
+    <string name="permissions_denied">Permissions denied</string>
+    <string name="retry">Re-try</string>
+    <string name="deny">Deny</string>
+    <string name="permissions_navigate_to_settings">If you wish to grant the permissions, navigate to settings.</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="settings">Settings</string>
+
+    <!---->
+
 </resources>
