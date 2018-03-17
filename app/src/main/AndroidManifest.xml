@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.treecio.hexplore">
+    package="com.treecio.hexplore">
 
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
@@ -46,16 +46,20 @@
         <activity
             android:name=".TestActivity"
             android:exported="true"/>
-        <activity android:name=".activities.PeopleActivity">
-        </activity>
 
         <!-- Services -->
-        <service android:name=".ble.BleService"/>
+        <service android:name=".ble.BleService" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts"/>
 
+        <activity
+            android:name=".activities.PeopleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

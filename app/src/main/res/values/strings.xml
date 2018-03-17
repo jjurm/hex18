@@ -4,6 +4,9 @@
     <string name="fb_login_protocol_scheme">fb187284645391384</string>
     <string name="ble_service_uuid" tools:ignore="TypographyDashes">8397948d-36c6-4e5b-b552-32153014ad29</string>
     <string name="btn_login">LOG IN WITH FACEBOOK</string>
+    <string name="txt_description">Place where people meet.</string>
+    <string name="txt_title">HEXPLORE</string>
+    <string name="fb_add">ADD ON FACEBOOK</string>
     <string name="preference_device_id">preference_device_id</string>
     <string name="preferences_global">preferences_global</string>
 

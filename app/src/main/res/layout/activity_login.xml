@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.treecio.hexplore.LoginActivity"
     android:background="@drawable/bg"
-    android:scaleType="centerCrop"
-    >
+    android:scaleType="centerCrop">
 
     <TextView
         android:id="@+id/title"
@@ -18,13 +17,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center_horizontal"
+        android:fontFamily="@font/roboto_slab_bold"
         android:letterSpacing="0.13"
         android:textColor="#12b390"
-        android:textSize="71sp"
+        android:textSize="42sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="HEXPLORE" />
+        android:text="@string/txt_title" />
 
     <TextView
         android:id="@+id/textView"
@@ -33,29 +33,33 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif"
+        android:fontFamily="Roboto"
         android:gravity="center_horizontal"
         android:textColor="#999999"
-        android:textSize="28sp"
+        android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
-        tools:text="Place where people meet." />
+        android:text="@string/txt_description" />
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:drawableStart="@drawable/com_facebook_button_icon_white"
+        android:paddingHorizontal="16dp"
+        android:drawablePadding="8dp"
         android:background="@drawable/btn_login"
         android:text="@string/btn_login"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="RtlSymmetry"
+        tools:targetApi="o" />
 
 </android.support.constraint.ConstraintLayout>

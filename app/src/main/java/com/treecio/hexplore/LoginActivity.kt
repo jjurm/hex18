@@ -3,6 +3,7 @@ package com.treecio.hexplore
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Window
 import android.widget.Toast
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -21,6 +22,11 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Remove title bar
+        window.requestFeature(Window.FEATURE_ACTION_BAR);
+        supportActionBar?.hide()
+
         setContentView(R.layout.activity_login)
 
         networkClient = NetworkClient(this)
