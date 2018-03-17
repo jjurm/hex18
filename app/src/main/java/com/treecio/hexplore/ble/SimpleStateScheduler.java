@@ -12,14 +12,9 @@ public class SimpleStateScheduler extends StateScheduler {
     // The scheduler running on a separate thread
     AsyncScheduler scheduler;
 
-    private State stateBroadcasting;
-    private State stateDiscovery;
-
-    public SimpleStateScheduler(State stateBroadcasting, State stateDiscovery){
+    public SimpleStateScheduler(State stateBroadcasting, State stateDiscovery) {
         super(stateBroadcasting, stateDiscovery);
         scheduler = new AsyncScheduler();
-        this.stateBroadcasting = stateBroadcasting;
-        this.stateDiscovery = stateDiscovery;
     }
 
     @Override
@@ -28,7 +23,7 @@ public class SimpleStateScheduler extends StateScheduler {
     }
 
     @Override
-    public void stop(){
+    public void stop() {
         scheduler.cancel(true);
     }
 
@@ -37,30 +32,29 @@ public class SimpleStateScheduler extends StateScheduler {
         @Override
         protected String doInBackground(State... states) {
             Random rand = new Random();
-            while (true){
+            while (!Thread.interrupted()) {
                 try {
                     // Put the device in broadcast mode
-                    states[0].transitionIn();
                     states[1].transitionOut();
-                    Thread.sleep(3000);
+                    states[0].transitionIn();
+                    Thread.sleep(3 * BleConfig.TIME_UNIT);
                     // Put the device in discovery mode
                     states[0].transitionOut();
                     states[1].transitionIn();
-                    Thread.sleep(1000);
+                    Thread.sleep(1 * BleConfig.TIME_UNIT);
                     // In broadcast again
-                    states[0].transitionIn();
                     states[1].transitionOut();
+                    states[0].transitionIn();
                     // And discovery mode
-                    Thread.sleep(3000);
+                    Thread.sleep(3 * BleConfig.TIME_UNIT);
                     states[0].transitionOut();
                     states[1].transitionIn();
 
                     // Add a random offset to prevent devices from never finding eachother when their cycles line up
-                    Thread.sleep((long) (1000 * rand.nextDouble()));
-                }catch (InterruptedException e){
-                    // Put it in the broadcast mode when something fails
-
-                    states[0].transitionIn();
+                    Thread.sleep((long) (1 * BleConfig.TIME_UNIT * rand.nextDouble()));
+                } catch (InterruptedException e) {
+                    // Stop both states when interrupted
+                    states[0].transitionOut();
                     states[1].transitionOut();
                     break;
                 }

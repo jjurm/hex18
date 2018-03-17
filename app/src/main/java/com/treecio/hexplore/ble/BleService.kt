@@ -9,30 +9,40 @@ import timber.log.Timber
 class BleService : Service() {
 
     companion object {
-        const val EXTRA_MODE = "extra_mode"
-        const val MODE_BROADCAST = "mode_broadcast"
-        const val MODE_DISCOVERY = "mode_discovery"
+        const val EXTRA_ACTION = "extra_action"
+        const val ACTION_START = "action_start"
+        const val ACTION_STOP = "action_stop"
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Timber.d("Starting service")
-
-        val state = when (intent?.getStringExtra(EXTRA_MODE)) {
-            MODE_BROADCAST -> BleBroadcasting(this)
-            MODE_DISCOVERY -> BleDiscovery(this)
-            else -> return START_STICKY
-        }
-
-        state.prepare()
-        state.transitionIn()
-
-        return START_STICKY
-    }
+    lateinit var scheduler: StateScheduler
 
     override fun onCreate() {
         super.onCreate()
+
+        val stateA = BleBroadcastingState(this)
+        val stateB = BleDiscoveryState(this)
+        stateA.prepare()
+        stateB.prepare()
+        scheduler = SimpleStateScheduler(stateA, stateB)
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Timber.d("Starting service")
+
+        val action = intent?.getStringExtra(EXTRA_ACTION)
+        when (action) {
+            ACTION_START -> {
+                scheduler.start()
+            }
+            ACTION_STOP -> {
+                scheduler.stop()
+                stopSelf()
+            }
+        }
+
+        return START_STICKY
     }
 
 }

@@ -3,8 +3,8 @@ package com.treecio.hexplore.ble;
 
 public abstract class StateScheduler {
 
-    private State stateBroadcasting;
-    private State stateDiscovery;
+    protected State stateBroadcasting;
+    protected State stateDiscovery;
 
     public StateScheduler(State stateBroadcasting, State stateDiscovery) {
         this.stateBroadcasting = stateBroadcasting;

@@ -9,13 +9,13 @@ import android.content.Context
 import android.os.ParcelUuid
 import timber.log.Timber
 
-class BleBroadcasting(context: Context) : BleAbstractState(context) {
+class BleBroadcastingState(context: Context) : BleAbstractState(context) {
 
     private lateinit var bluetoothLeAdvertiser: BluetoothLeAdvertiser
 
     val advertisingCallback = object : AdvertiseCallback() {
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
-            Timber.i("Advertise success!")
+            //Timber.i("Advertise success!")
         }
 
         override fun onStartFailure(errorCode: Int) {
@@ -51,7 +51,13 @@ class BleBroadcasting(context: Context) : BleAbstractState(context) {
     }
 
 
-    override fun transitionIn() = startBroadcasting()
-    override fun transitionOut() = stopBroadcasting()
+    override fun transitionIn() {
+        //Timber.d("Broadcasting START")
+        startBroadcasting()
+    }
+    override fun transitionOut() {
+        stopBroadcasting()
+        //Timber.d("Broadcasting STOP")
+    }
 
 }

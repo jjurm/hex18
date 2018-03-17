@@ -13,7 +13,7 @@ import timber.log.Timber
 import java.util.*
 
 
-class BleDiscovery(context: Context) : BleAbstractState(context) {
+class BleDiscoveryState(context: Context) : BleAbstractState(context) {
 
     private lateinit var bluetoothLeScanner: BluetoothLeScanner
     private lateinit var networkClient: NetworkClient
@@ -86,6 +86,12 @@ class BleDiscovery(context: Context) : BleAbstractState(context) {
     }
 
 
-    override fun transitionIn() = startDiscovery()
-    override fun transitionOut() = stopDiscovery()
+    override fun transitionIn() {
+        Timber.d("Discovery: START")
+        startDiscovery()
+    }
+    override fun transitionOut() {
+        stopDiscovery()
+        //Timber.d("Discovery: STOP")
+    }
 }
