@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.le.*
 import android.content.Context
 import android.os.ParcelUuid
+import android.widget.Toast
 import com.raizlabs.android.dbflow.data.Blob
 import com.treecio.hexplore.model.User
 import com.treecio.hexplore.network.NetworkClient
@@ -68,7 +69,9 @@ class BleDiscoveryState(context: Context) : BleAbstractState(context) {
             newUser = false
         }
         if (user.lastHandshake?.before(thresholdDate) ?: true) {
-            Timber.d("Handshake with " + shortId.blob.toHexString())
+            val msg = "Handshake with " + shortId.blob.toHexString()
+            Timber.d(msg)
+            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
             user.handshakeCount++
         }
         user.lastHandshake = now

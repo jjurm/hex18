@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Hexplore.iml" filepath="$PROJECT_DIR$/Hexplore.iml" />
       <module fileurl="file://C:\Users\Pali\StudioProjects\hex\hex18\Hexplore.iml" filepath="C:\Users\Pali\StudioProjects\hex\hex18\Hexplore.iml" />
       <module fileurl="file://C:\Users\Pali\StudioProjects\hex18\Hexplore.iml" filepath="C:\Users\Pali\StudioProjects\hex18\Hexplore.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\Pali\StudioProjects\hex\hex18\app\app.iml" filepath="C:\Users\Pali\StudioProjects\hex\hex18\app\app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/hex18.iml" filepath="$PROJECT_DIR$/.idea/hex18.iml" />
       <module fileurl="file://C:\Users\jjurm\workspace\Hexplore\hex18.iml" filepath="C:\Users\jjurm\workspace\Hexplore\hex18.iml" />
+      <module fileurl="file://C:\Users\jjurm\workspace\Hexplore\.idea\hex18.iml" filepath="C:\Users\jjurm\workspace\Hexplore\.idea\hex18.iml" />
     </modules>
   </component>
 </project>
