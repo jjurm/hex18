@@ -19,6 +19,8 @@
     <string name="dismiss">Dismiss</string>
     <string name="settings">Settings</string>
     <string name="preference_local_user_id">preference_local_user_id</string>
+    <string name="permissions_rationale">We need the coarse location permission to scan Bluetooth beacons</string>
+    <string name="hexplore_cant_work_without_permissions">Hexplore cannot work without the permissions</string>
 
     <!---->
 
