@@ -14,6 +14,6 @@ object BleConfig {
 
     const val TIME_UNIT = 700
 
-    val thresholdDateLambda: Calendar.() -> Unit = { add(Calendar.SECOND, -10) }
+    val thresholdDateLambda: Calendar.() -> Unit = { add(Calendar.SECOND, -30) }
 
 }

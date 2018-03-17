@@ -9,12 +9,16 @@ import com.raizlabs.android.dbflow.kotlinextensions.list
 import com.raizlabs.android.dbflow.kotlinextensions.select
 import com.raizlabs.android.dbflow.kotlinextensions.where
 import com.treecio.hexplore.ble.Preferences
+import com.treecio.hexplore.db.UsersReloadNeededEvent
 import com.treecio.hexplore.model.User
 import com.treecio.hexplore.model.User_Table
 import com.treecio.hexplore.utils.fromHexStringToByteArray
 import okhttp3.*
+import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import java.io.IOException
+
+
 
 
 class NetworkClient(val context: Context) {
@@ -103,13 +107,16 @@ class NetworkClient(val context: Context) {
     }
 
     fun queryUser(deviceId: String) {
-        val obj = ProfilesRequest(listOf(deviceId))
+        val obj = ProfilesRequest(Preferences.getLocalUserId(context), listOf(deviceId))
         post(ENDPOINT_PROFILES, obj, ProfilesResponse::class.java, { response ->
             response.profiles.forEach { profileInfo ->
                 val blob = Blob(deviceId.fromHexStringToByteArray())
                 val usr = (select from User::class where User_Table.shortId.eq(blob)).list.first()
                 usr.name = profileInfo.name
+                usr.profilePhoto = profileInfo.image_url
+                usr.occupation = profileInfo.occupation
                 usr.save()
+                EventBus.getDefault().post(UsersReloadNeededEvent())
             }
         })
     }
@@ -125,6 +132,7 @@ class NetworkClient(val context: Context) {
     )
 
     private class ProfilesRequest(
+            val user_id: String,
             val ids: List<String>
     )
 
@@ -134,6 +142,8 @@ class NetworkClient(val context: Context) {
         class ProfileData(
                 val id: String,
                 val name: String,
+                val image_url: String,
+                val occupation: String,
                 val description: String?
         )
     }
