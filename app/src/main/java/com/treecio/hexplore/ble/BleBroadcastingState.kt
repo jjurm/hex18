@@ -7,6 +7,7 @@ import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.BluetoothLeAdvertiser
 import android.content.Context
 import android.os.ParcelUuid
+import android.widget.Toast
 import timber.log.Timber
 
 class BleBroadcastingState(context: Context) : BleAbstractState(context) {
@@ -20,6 +21,7 @@ class BleBroadcastingState(context: Context) : BleAbstractState(context) {
 
         override fun onStartFailure(errorCode: Int) {
             Timber.e("Advertising onStartFailure: $errorCode")
+            Toast.makeText(context, "Bluetooth failure", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -8,7 +8,7 @@ import com.treecio.hexplore.utils.toBytes
 import com.treecio.hexplore.utils.toHexString
 import java.util.*
 
-object Hardware {
+object Preferences {
 
     private fun prefs(context: Context) = context.getSharedPreferences(
             context.getString(R.string.preferences_global), Context.MODE_PRIVATE)
@@ -34,6 +34,16 @@ object Hardware {
         } else {
             generateAndStoreBytes(prefs, context)
         }
+    }
+
+    fun saveLocalUserId(context: Context, id: String) {
+        val prefs = prefs(context)
+        prefs.edit().putString(context.getString(R.string.preference_local_user_id), id).apply()
+    }
+
+    fun getLocalUserId(context: Context): String {
+        val prefs = prefs(context)
+        return prefs.getString(context.getString(R.string.preference_local_user_id), null)
     }
 
     private fun generateAndStoreBytes(prefs: SharedPreferences, context: Context): ByteArray {

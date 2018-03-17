@@ -3,7 +3,6 @@ package com.treecio.hexplore.ble
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.le.*
 import android.content.Context
-import android.os.AsyncTask
 import android.os.ParcelUuid
 import com.raizlabs.android.dbflow.data.Blob
 import com.treecio.hexplore.model.User
@@ -63,21 +62,21 @@ class BleDiscoveryState(context: Context) : BleAbstractState(context) {
         val thresholdDate = cal.time
 
         val user = User(shortId)
+        var newUser = true
         if (user.exists()) {
             user.load()
+            newUser = false
         }
         if (user.lastHandshake?.before(thresholdDate) ?: true) {
-            Timber.d("Handshake with "+shortId.blob.toHexString())
+            Timber.d("Handshake with " + shortId.blob.toHexString())
             user.handshakeCount++
         }
         user.lastHandshake = now
         user.save()
 
         // if the user has not been queried yet
-        if (user.handshakeCount == 1) {
-            AsyncTask.execute {
-                networkClient.queryUser(shortId.blob.toHexString())
-            }
+        if (newUser) {
+            networkClient.queryUser(shortId.blob.toHexString())
         }
     }
 
@@ -90,6 +89,7 @@ class BleDiscoveryState(context: Context) : BleAbstractState(context) {
         Timber.d("Discovery: START")
         startDiscovery()
     }
+
     override fun transitionOut() {
         stopDiscovery()
         //Timber.d("Discovery: STOP")

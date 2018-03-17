@@ -1,7 +1,6 @@
 package com.treecio.hexplore.network
 
 import android.content.Context
-import android.os.AsyncTask
 import com.facebook.AccessToken
 import com.google.gson.Gson
 import com.raizlabs.android.dbflow.data.Blob
@@ -9,7 +8,7 @@ import com.raizlabs.android.dbflow.kotlinextensions.from
 import com.raizlabs.android.dbflow.kotlinextensions.list
 import com.raizlabs.android.dbflow.kotlinextensions.select
 import com.raizlabs.android.dbflow.kotlinextensions.where
-import com.treecio.hexplore.ble.Hardware
+import com.treecio.hexplore.ble.Preferences
 import com.treecio.hexplore.model.User
 import com.treecio.hexplore.model.User_Table
 import com.treecio.hexplore.utils.fromHexStringToByteArray
@@ -95,22 +94,22 @@ class NetworkClient(val context: Context) {
     }
 
     fun register(facebookToken: AccessToken, callback: () -> Unit) {
-        val obj = AddUserRequest(Hardware.getDeviceIdString(context),
+        val obj = AddUserRequest(Preferences.getDeviceIdString(context),
                 facebookToken.userId, facebookToken.token)
-        post(ENDPOINT_ADDUSER, obj, Unit::class.java, { callback() })
+        post(ENDPOINT_ADDUSER, obj, AddUserResponse::class.java, { response ->
+            Preferences.saveLocalUserId(context, response.user_id)
+            callback()
+        })
     }
 
     fun queryUser(deviceId: String) {
         val obj = ProfilesRequest(listOf(deviceId))
         post(ENDPOINT_PROFILES, obj, ProfilesResponse::class.java, { response ->
-            AsyncTask.execute {
-                response.profiles.entries.forEach { (deviceId, profileInfo) ->
-                    val blob = Blob(deviceId.fromHexStringToByteArray())
-                    val usr = (select from User::class where User_Table.shortId.eq(blob)).list.first()
-
-                    usr.name = profileInfo.name
-                    usr.save()
-                }
+            response.profiles.forEach { profileInfo ->
+                val blob = Blob(deviceId.fromHexStringToByteArray())
+                val usr = (select from User::class where User_Table.shortId.eq(blob)).list.first()
+                usr.name = profileInfo.name
+                usr.save()
             }
         })
     }
@@ -121,15 +120,21 @@ class NetworkClient(val context: Context) {
             val facebook_token: String
     )
 
+    private class AddUserResponse(
+            val user_id: String
+    )
+
     private class ProfilesRequest(
-            val profiles: List<String>
+            val ids: List<String>
     )
 
     private class ProfilesResponse(
-            val profiles: Map<String, ProfileData>
+            val profiles: List<ProfileData>
     ) {
         class ProfileData(
-                val name: String
+                val id: String,
+                val name: String,
+                val description: String?
         )
     }
 

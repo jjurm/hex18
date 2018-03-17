@@ -12,6 +12,6 @@ abstract class BleAbstractState(val context: Context) : State {
     protected fun getServiceUuid(): UUID =
             UUID.fromString(context.getString(R.string.ble_service_uuid))
 
-    protected fun getDeviceIDBytes() = Hardware.getDeviceId(context)
+    protected fun getDeviceIDBytes() = Preferences.getDeviceId(context)
 
 }
