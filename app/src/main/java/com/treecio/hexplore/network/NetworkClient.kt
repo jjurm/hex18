@@ -3,6 +3,7 @@ package com.treecio.hexplore.network
 import android.content.Context
 import com.facebook.AccessToken
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import com.raizlabs.android.dbflow.data.Blob
 import com.raizlabs.android.dbflow.kotlinextensions.from
 import com.raizlabs.android.dbflow.kotlinextensions.list
@@ -17,8 +18,6 @@ import okhttp3.*
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import java.io.IOException
-
-
 
 
 class NetworkClient(val context: Context) {
@@ -49,8 +48,12 @@ class NetworkClient(val context: Context) {
             override fun onResponse(call: Call?, response: Response) {
                 val responseString = response.body()?.string()
                 Timber.i("Response: $responseString")
-                val obj = gson.fromJson(responseString, clazz)
-                handler.invoke(obj)
+                try {
+                    val obj = gson.fromJson(responseString, clazz)
+                    handler.invoke(obj)
+                } catch (e: JsonSyntaxException) {
+                    Timber.w(e)
+                }
             }
 
         })
@@ -71,7 +74,6 @@ class NetworkClient(val context: Context) {
                 val responseString = response.body()?.string()
                 Timber.i("Response: $responseString")
             }
-
         })
     }
 
@@ -90,8 +92,12 @@ class NetworkClient(val context: Context) {
             override fun onResponse(call: Call?, response: Response) {
                 val responseString = response.body()?.string()
                 Timber.i("Response: $responseString")
-                val obj = gson.fromJson(responseString, responseClazz)
-                handler.invoke(obj)
+                try {
+                    val obj = gson.fromJson(responseString, responseClazz)
+                    handler.invoke(obj)
+                } catch (e: JsonSyntaxException) {
+                    Timber.w(e)
+                }
             }
 
         })
