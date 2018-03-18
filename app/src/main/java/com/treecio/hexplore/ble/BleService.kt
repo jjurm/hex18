@@ -17,16 +17,18 @@ class BleService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
-    lateinit var scheduler: StateScheduler
+    var scheduler: StateScheduler? = null
+
+    private lateinit var stateA: BleBroadcastingState
+    private lateinit var stateB: BleDiscoveryState
 
     override fun onCreate() {
         super.onCreate()
 
-        val stateA = BleBroadcastingState(this)
-        val stateB = BleDiscoveryState(this)
+        stateA = BleBroadcastingState(this)
+        stateB = BleDiscoveryState(this)
         stateA.prepare()
         stateB.prepare()
-        scheduler = SimpleStateScheduler(stateA, stateB)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -36,12 +38,13 @@ class BleService : Service() {
             ACTION_START -> {
                 Timber.d("Starting service")
                 Toast.makeText(this, "Starting Service", Toast.LENGTH_SHORT).show()
-                scheduler.start()
+                scheduler = SimpleStateScheduler(stateA, stateB)
+                scheduler!!.start()
             }
             ACTION_STOP -> {
                 Timber.d("Stopping service")
                 Toast.makeText(this, "Stopping Service", Toast.LENGTH_SHORT).show()
-                scheduler.stop()
+                scheduler?.stop()
                 stopSelf()
             }
         }
