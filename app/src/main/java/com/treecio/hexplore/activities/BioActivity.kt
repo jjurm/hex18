@@ -4,21 +4,33 @@ import android.os.Bundle
 import com.squareup.picasso.Picasso
 import com.treecio.hexplore.R
 import com.treecio.hexplore.ble.Preferences
+import com.treecio.hexplore.network.NetworkClient
 import kotlinx.android.synthetic.main.activity_bio.*
 
 
 class BioActivity() : BaseActivity() {
 
+    lateinit var networkClient: NetworkClient
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bio)
 
+        networkClient = NetworkClient(this)
+
         loadContent()
 
         btnSave.setOnClickListener {
-            Preferences.saveLocalOccupation(this, editOccupation.text.toString())
-            Preferences.saveLocalBio(this, editBio.text.toString())
-            finish()
+            val occupation = editOccupation.text.toString()
+            val bio = editBio.text.toString()
+
+            Preferences.saveLocalOccupation(this, occupation)
+            Preferences.saveLocalBio(this, bio)
+
+            networkClient.updateBio(Preferences.getLocalUserId(this), occupation, bio) {
+                finish()
+            }
+            btnSave.isEnabled = false
         }
     }
 

@@ -28,6 +28,7 @@ class NetworkClient(val context: Context) {
         val BASE = "https://hex18.herokuapp.com/api/v1"
         val ENDPOINT_PROFILES = "$BASE/profiles"
         val ENDPOINT_ADDUSER = "$BASE/addUser"
+        val ENDPOINT_ADDDESCRIPTION = "$BASE/addDescriptionForUser"
     }
 
     var client = OkHttpClient()
@@ -130,6 +131,13 @@ class NetworkClient(val context: Context) {
         })
     }
 
+    fun updateBio(userId: String, occupation: String, bio: String, callback: () -> Unit) {
+        val obj = AddDescriptionForUserRequest(userId, occupation, bio)
+        post(ENDPOINT_ADDDESCRIPTION, obj, AddDescriptionForUserResponse::class.java) { response ->
+            callback()
+        }
+    }
+
     private class AddUserRequest(
             val device_id: String,
             val user_id: String,
@@ -161,5 +169,13 @@ class NetworkClient(val context: Context) {
                 val description: String?
         )
     }
+
+    private class AddDescriptionForUserRequest(
+            val user_id: String,
+            val occupation: String,
+            val description: String
+    )
+
+    private class AddDescriptionForUserResponse()
 
 }
