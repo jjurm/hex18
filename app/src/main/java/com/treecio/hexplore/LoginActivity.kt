@@ -1,5 +1,6 @@
 package com.treecio.hexplore
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -38,9 +39,16 @@ class LoginActivity : AppCompatActivity(), PermissionCallback {
 
         LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
+                val dialog = ProgressDialog.show(this@LoginActivity, "",
+                        "Logging in. Please wait...", true)
+                dialog.show()
+
                 networkClient.register(loginResult.accessToken) {
-                    finish()
-                    startActivity(Intent(this@LoginActivity, PeopleActivity::class.java))
+                    runOnUiThread {
+                        dialog.hide()
+                        finish()
+                        startActivity(Intent(this@LoginActivity, PeopleActivity::class.java))
+                    }
                 }
             }
 
