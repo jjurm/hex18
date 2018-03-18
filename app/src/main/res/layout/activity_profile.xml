@@ -7,8 +7,10 @@
     tools:context="com.treecio.hexplore.activities.ProfileActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/img_profile"
         android:layout_width="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +26,7 @@
         android:textSize="24sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/img_profile"
         tools:text="Rick" />
 
     <TextView
@@ -35,11 +37,11 @@
         android:layout_marginTop="16dp"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/img_profile"
         tools:text="72 handshakes" />
 
     <Button
-        android:id="@+id/btn_fb"
+        android:id="@+id/btn_fb_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
