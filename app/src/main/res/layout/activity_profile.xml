@@ -6,51 +6,119 @@
     android:layout_height="match_parent"
     tools:context="com.treecio.hexplore.activities.ProfileActivity">
 
-    <ImageView
+    <com.santalu.aspectratioimageview.AspectRatioImageView
         android:id="@+id/img_profile"
         android:layout_width="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:ari_aspect="height"
+        app:ari_ratio="0.5625"
         tools:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
 
-    <TextView
-        android:id="@+id/txt_profile_name"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:textSize="24sp"
-        android:textColor="@color/black"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/img_profile"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_profile"
-        tools:text="Rick" />
+        android:background="@color/transparent_gray">
+
+        <TextView
+            android:id="@+id/txt_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Rick" />
+
+        <TextView
+            android:id="@+id/txt_profile_occupation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_profile_name"
+            tools:text="Occupation"
+            android:text="Tutor"/>
+
+        <TextView
+            android:id="@+id/txt_profile_shake_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="72 handshakes" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/l_profile_nearby"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintTop_toBottomOf="@id/img_profile">
+
+        <TextView
+            android:id="@+id/txt_profile_nearby"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/user_nearby"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
 
     <TextView
-        android:id="@+id/txt_profile_shake_count"
-        android:layout_width="wrap_content"
+        android:id="@+id/txt_profile_bio"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp"
-        android:textSize="12sp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAlignment="center"
+        android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/img_profile"
-        tools:text="72 handshakes" />
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget egestas felis. Donec feugiat vitae risus id ullamcorper. Nunc mauris leo, dignissim in orci ullamcorper, sodales porttitor velit. "
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget egestas felis. Donec feugiat vitae risus id ullamcorper. Nunc mauris leo, dignissim in orci ullamcorper, sodales porttitor velit. Nulla sodales, enim a tempus aliquet, leo sapien iaculis dui, vitae porta lectus metus ut purus." />
 
     <Button
         android:id="@+id/btn_fb_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
+        android:background="@drawable/btn_login"
+        android:drawablePadding="8dp"
         android:drawableStart="@drawable/com_facebook_button_icon_white"
         android:paddingHorizontal="16dp"
-        android:drawablePadding="8dp"
-        android:background="@drawable/btn_login"
         android:text="@string/fb_add"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

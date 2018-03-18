@@ -75,6 +75,12 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
 
     implementation 'ru.egslava:blurredview:1.0'
+
+    //Aspect ratio
+    implementation 'com.github.santalu:aspect-ratio-imageview:1.0.3'
+
+    //Joda time
+    compile 'net.danlew:android.joda:2.9.9.2'
 }
 
 

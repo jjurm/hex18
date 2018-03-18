@@ -2,9 +2,12 @@ package com.treecio.hexplore.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.LinearLayout
 import com.raizlabs.android.dbflow.list.FlowQueryList
 import com.raizlabs.android.dbflow.sql.language.SQLite
 import com.treecio.hexplore.LoginActivity
@@ -20,8 +23,9 @@ import kotlinx.android.synthetic.main.activity_people.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-
-
+import org.joda.time.LocalDateTime
+import java.util.*
+import kotlin.concurrent.timerTask
 
 
 class PeopleActivity : BaseActivity() {
