@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat
 import com.treecio.hexplore.R
 import com.treecio.hexplore.activities.PeopleActivity
 import com.treecio.hexplore.activities.ProfileActivity
+import com.treecio.hexplore.ble.BleConfig
 import com.treecio.hexplore.model.USER_ID
 import com.treecio.hexplore.model.User
 import com.treecio.hexplore.utils.fromHexStringToByteArray
@@ -52,7 +53,7 @@ class NotificationBuilder(private val context: Context) {
         val id = nextId()
         val builder = baseBuilder()
                 .setContentTitle("New connection nearby")
-                .setContentText("You reached 10 handshakes with ${user.name}")
+                .setContentText("You reached ${BleConfig.HANDSHAKE_TARGET} handshakes with ${user.name}")
                 .setAutoCancel(true)
                 //.setLargeIcon(<Bitmap>)
                 .setContentIntent(getUserPendingIntent(user, id))
