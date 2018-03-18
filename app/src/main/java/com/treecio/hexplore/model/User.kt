@@ -18,6 +18,7 @@ class User (
         @Column var name: String? = null,
         @Column var profilePhoto: String? = null,
         @Column var occupation: String? = null,
+        @Column var bio: String? = null,
         @Column var profileUrl: String? = null
 
 ) : BaseModel() {

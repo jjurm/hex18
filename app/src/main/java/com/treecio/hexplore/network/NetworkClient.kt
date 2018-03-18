@@ -125,6 +125,7 @@ class NetworkClient(val context: Context) {
                 usr.profilePhoto = profileInfo.image_url
                 usr.profileUrl = profileInfo.facebook_url
                 usr.occupation = profileInfo.occupation
+                usr.bio = profileInfo.description
                 usr.save()
                 EventBus.getDefault().post(UsersReloadNeededEvent())
             }
