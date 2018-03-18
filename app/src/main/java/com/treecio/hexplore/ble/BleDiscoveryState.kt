@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.raizlabs.android.dbflow.data.Blob
 import com.treecio.hexplore.model.User
 import com.treecio.hexplore.network.NetworkClient
+import com.treecio.hexplore.notification.NotificationBuilder
 import com.treecio.hexplore.utils.toHexString
 import timber.log.Timber
 import java.util.*
@@ -57,29 +58,40 @@ class BleDiscoveryState(context: Context) : BleAbstractState(context) {
     }
 
     private fun handleId(shortId: Blob) {
+        var newUser = true
+        var showNotification = false
+        // calculate dates
         val now = Date()
         val cal = Calendar.getInstance()
         cal.(BleConfig.thresholdDateLambda)()
         val thresholdDate = cal.time
 
+        // load user if needed
         val user = User(shortId)
-        var newUser = true
         if (user.exists()) {
             user.load()
             newUser = false
         }
+
+        // update fields
         if (user.lastHandshake?.before(thresholdDate) ?: true) {
             val msg = "Handshake with " + shortId.blob.toHexString()
             Timber.d(msg)
             Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
             user.handshakeCount++
+            if (user.handshakeCount == BleConfig.HANDSHAKE_TARGET) {
+                showNotification = true
+            }
         }
         user.lastHandshake = now
         user.save()
 
-        // if the user has not been queried yet
+        // fetch facebook data
         if (newUser) {
             networkClient.queryUser(shortId.blob.toHexString())
+        }
+        if (showNotification) {
+            NotificationBuilder(context).frequentPersonNotification(user)
         }
     }
 
