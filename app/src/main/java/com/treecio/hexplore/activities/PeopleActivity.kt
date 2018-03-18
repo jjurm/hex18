@@ -30,9 +30,11 @@ class PeopleActivity : BaseActivity() {
             return
         }
 
-        usersList = SQLite.select().from(User::class.java).flowQueryList()
-
         setContentView(R.layout.activity_people)
+        /*supportActionBar?.displayOptions = ActionBar.DISPLAY_USE_LOGO or ActionBar.DISPLAY_SHOW_TITLE
+        supportActionBar?.setLogo(R.mipmap.ic_launcher)*/
+
+        usersList = SQLite.select().from(User::class.java).flowQueryList()
 
         rv.setHasFixedSize(true)
         val llm = LinearLayoutManager(this)
