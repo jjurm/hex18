@@ -11,6 +11,7 @@ import com.raizlabs.android.dbflow.list.FlowQueryList
 import com.squareup.picasso.Picasso
 import com.treecio.hexplore.R
 import com.treecio.hexplore.activities.ProfileActivity
+import com.treecio.hexplore.utils.fromHexStringToByteArray
 
 const val USER_ID = "com.treecio.hexplore.MESSAGE"
 
@@ -30,7 +31,7 @@ class UserAdapter(private val userList:FlowQueryList<User>): RecyclerView.Adapte
             view ->
             run {
                 val intent = Intent(view.context, ProfileActivity::class.java).apply {
-                    putExtra(USER_ID, userList[position]?.shortId?.blob)
+                    putExtra(USER_ID, userList[position]?.shortId?.fromHexStringToByteArray())
                 }
 
                 view.context.startActivity(intent)

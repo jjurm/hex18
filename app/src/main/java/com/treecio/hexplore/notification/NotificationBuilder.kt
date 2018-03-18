@@ -14,6 +14,7 @@ import com.treecio.hexplore.activities.PeopleActivity
 import com.treecio.hexplore.activities.ProfileActivity
 import com.treecio.hexplore.model.USER_ID
 import com.treecio.hexplore.model.User
+import com.treecio.hexplore.utils.fromHexStringToByteArray
 
 class NotificationBuilder(private val context: Context) {
 
@@ -37,7 +38,7 @@ class NotificationBuilder(private val context: Context) {
 
     private fun getUserPendingIntent(user: User, requestCode: Int): PendingIntent? {
         val resultIntent = Intent(context, ProfileActivity::class.java)
-        resultIntent.putExtra(USER_ID, user.shortId?.blob)
+        resultIntent.putExtra(USER_ID, user.shortId?.fromHexStringToByteArray())
         // Create a stack that navigates user from the target activity up through the parent stack
         // Notification --click--> ProfileActivity --back--> MainActivity --back--> Home
         val stackBuilder = TaskStackBuilder.create(context)

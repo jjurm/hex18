@@ -4,7 +4,6 @@ import android.content.Context
 import com.facebook.AccessToken
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
-import com.raizlabs.android.dbflow.data.Blob
 import com.raizlabs.android.dbflow.kotlinextensions.from
 import com.raizlabs.android.dbflow.kotlinextensions.list
 import com.raizlabs.android.dbflow.kotlinextensions.select
@@ -13,7 +12,6 @@ import com.treecio.hexplore.ble.Preferences
 import com.treecio.hexplore.db.UsersReloadNeededEvent
 import com.treecio.hexplore.model.User
 import com.treecio.hexplore.model.User_Table
-import com.treecio.hexplore.utils.fromHexStringToByteArray
 import okhttp3.*
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
@@ -116,8 +114,7 @@ class NetworkClient(val context: Context) {
         val obj = ProfilesRequest(Preferences.getLocalUserId(context), listOf(deviceId))
         post(ENDPOINT_PROFILES, obj, ProfilesResponse::class.java, { response ->
             response.profiles.forEach { profileInfo ->
-                val blob = Blob(deviceId.fromHexStringToByteArray())
-                val usr = (select from User::class where User_Table.shortId.eq(blob)).list.first()
+                val usr = (select from User::class where User_Table.shortId.eq(deviceId)).list.first()
                 usr.name = profileInfo.name
                 usr.profilePhoto = profileInfo.image_url
                 usr.profileUrl = profileInfo.facebook_url

@@ -4,7 +4,6 @@ import android.database.Cursor
 import com.raizlabs.android.dbflow.annotation.Column
 import com.raizlabs.android.dbflow.annotation.PrimaryKey
 import com.raizlabs.android.dbflow.annotation.Table
-import com.raizlabs.android.dbflow.data.Blob
 import com.raizlabs.android.dbflow.structure.BaseModel
 import com.treecio.hexplore.db.AppDatabase
 import java.util.*
@@ -12,7 +11,7 @@ import java.util.*
 @Table(database = AppDatabase::class)
 class User (
 
-        @PrimaryKey var shortId: Blob? = null,
+        @PrimaryKey var shortId: String? = null,
 
         @Column var handshakeCount: Int = 0,
         @Column var lastHandshake: Date? = null,

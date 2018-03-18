@@ -5,7 +5,6 @@ import android.bluetooth.le.*
 import android.content.Context
 import android.os.ParcelUuid
 import android.widget.Toast
-import com.raizlabs.android.dbflow.data.Blob
 import com.treecio.hexplore.model.User
 import com.treecio.hexplore.network.NetworkClient
 import com.treecio.hexplore.notification.NotificationBuilder
@@ -31,8 +30,9 @@ class BleDiscoveryState(context: Context) : BleAbstractState(context) {
         fun onSingleResult(result: ScanResult) {
             result.device ?: return
             result.scanRecord.serviceData.values.forEach { remoteDeviceId ->
-                Timber.i("Scanned ${remoteDeviceId.toHexString()}")
-                handleId(Blob(remoteDeviceId))
+                val hexString = remoteDeviceId.toHexString()
+                Timber.i("Scanned ${hexString}")
+                handleId(hexString)
             }
         }
 
@@ -57,7 +57,7 @@ class BleDiscoveryState(context: Context) : BleAbstractState(context) {
         networkClient = NetworkClient(context)
     }
 
-    private fun handleId(shortId: Blob) {
+    private fun handleId(shortId: String) {
         var newUser = true
         var showNotification = false
         // calculate dates
@@ -75,7 +75,7 @@ class BleDiscoveryState(context: Context) : BleAbstractState(context) {
 
         // update fields
         if (user.lastHandshake?.before(thresholdDate) ?: true) {
-            val msg = "Handshake with " + shortId.blob.toHexString()
+            val msg = "Handshake with " + shortId
             Timber.d(msg)
             Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
             user.handshakeCount++
@@ -88,7 +88,7 @@ class BleDiscoveryState(context: Context) : BleAbstractState(context) {
 
         // fetch facebook data
         if (newUser) {
-            networkClient.queryUser(shortId.blob.toHexString())
+            networkClient.queryUser(shortId)
         }
         if (showNotification) {
             NotificationBuilder(context).frequentPersonNotification(user)
