@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity(), PermissionCallback {
 
                 networkClient.register(loginResult.accessToken) {
                     runOnUiThread {
-                        dialog.hide()
+                        dialog.dismiss()
                         finish()
                         startActivity(Intent(this@LoginActivity, PeopleActivity::class.java))
                     }
