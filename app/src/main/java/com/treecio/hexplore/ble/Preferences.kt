@@ -46,6 +46,46 @@ object Preferences {
         return prefs.getString(context.getString(R.string.preference_local_user_id), null)
     }
 
+    fun saveLocalName(context: Context, name: String) {
+        val prefs = prefs(context)
+        prefs.edit().putString(context.getString(R.string.preference_local_name), name).apply()
+    }
+
+    fun getLocalName(context: Context): String? {
+        val prefs = prefs(context)
+        return prefs.getString(context.getString(R.string.preference_local_name), null)
+    }
+
+    fun saveLocalPhotoUrl(context: Context, url: String) {
+        val prefs = prefs(context)
+        prefs.edit().putString(context.getString(R.string.preference_local_photo_url), url).apply()
+    }
+
+    fun getLocalPhotoUrl(context: Context): String? {
+        val prefs = prefs(context)
+        return prefs.getString(context.getString(R.string.preference_local_photo_url), null)
+    }
+
+    fun saveLocalOccupation(context: Context, occupation: String) {
+        val prefs = prefs(context)
+        prefs.edit().putString(context.getString(R.string.preference_local_occupation), occupation).apply()
+    }
+
+    fun getLocalOccupation(context: Context): String? {
+        val prefs = prefs(context)
+        return prefs.getString(context.getString(R.string.preference_local_occupation), null)
+    }
+
+    fun saveLocalBio(context: Context, bio: String) {
+        val prefs = prefs(context)
+        prefs.edit().putString(context.getString(R.string.preference_local_bio), bio).apply()
+    }
+
+    fun getLocalBio(context: Context): String? {
+        val prefs = prefs(context)
+        return prefs.getString(context.getString(R.string.preference_local_bio), null)
+    }
+
     private fun generateAndStoreBytes(prefs: SharedPreferences, context: Context): ByteArray {
         val bytes = UUID.randomUUID().toBytes().take(BleConfig.MAX_BYTES).toByteArray()
         prefs.edit().putString(context.getString(R.string.preference_device_id), bytes.toHexString()).apply()

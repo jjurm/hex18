@@ -3,6 +3,8 @@ package com.treecio.hexplore.activities
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import com.raizlabs.android.dbflow.list.FlowQueryList
 import com.raizlabs.android.dbflow.sql.language.SQLite
 import com.treecio.hexplore.LoginActivity
@@ -17,6 +19,8 @@ import kotlinx.android.synthetic.main.activity_people.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+
+
 
 
 class PeopleActivity : BaseActivity() {
@@ -80,4 +84,24 @@ class PeopleActivity : BaseActivity() {
         intent.putExtra(BleService.EXTRA_ACTION, BleService.ACTION_STOP)
         startService(intent)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.activity_people, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_my_profile -> {
+            // User chose the "Settings" item, show the app settings UI...
+            startActivity(Intent(this, BioActivity::class.java))
+            true
+        }
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
+    }
+
 }

@@ -39,16 +39,7 @@
         <activity android:name=".LoginActivity">
         </activity>
         <activity
-            android:name=".TestActivity"
-            android:exported="true"/>
-
-        <!-- Services -->
-        <service android:name=".ble.BleService"/>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts"/>
-
+            android:name=".TestActivity"/>
         <activity
             android:name=".activities.PeopleActivity"
             android:exported="true">
@@ -60,7 +51,21 @@
         </activity>
         <activity
             android:name=".activities.ProfileActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:parentActivityName=".activities.PeopleActivity"/>
+        <activity
+            android:name=".activities.BioActivity"
+            android:parentActivityName=".activities.PeopleActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"
+            />
+
+        <!-- Services -->
+        <service android:name=".ble.BleService"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts"/>
+
     </application>
 
 </manifest>

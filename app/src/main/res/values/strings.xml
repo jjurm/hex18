@@ -21,6 +21,14 @@
     <string name="preference_local_user_id">preference_local_user_id</string>
     <string name="permissions_rationale">We need the coarse location permission to scan Bluetooth beacons</string>
     <string name="hexplore_cant_work_without_permissions">Hexplore cannot work without the permissions</string>
+    <string name="preference_local_name">preference_local_name</string>
+    <string name="preference_local_photo_url">preference_local_photo_url</string>
+    <string name="preference_local_occupation">preference_local_occupation</string>
+    <string name="preference_local_bio">preference_local_bio</string>
+    <string name="my_profile">My profile</string>
+    <string name="occupation">Occupation</string>
+    <string name="add_short_biography">Add short biography</string>
+    <string name="save">Save</string>
 
     <!---->
 
