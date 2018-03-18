@@ -56,7 +56,7 @@ class HexploreApp : Application() {
                             Date(System.currentTimeMillis() - 60_000 * 4),
                             "Someone Funny",
                             "https://texasbarblog.lexblogplatformtwo.com/files/2011/12/housto-bankruptcy-attorney-adam-schachter1.jpg",
-                            null,
+                            "My Occupation",
                             "https://google.com"
                     )
             )

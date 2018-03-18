@@ -55,7 +55,7 @@ class UserAdapter(private val userList:FlowQueryList<User>,
                 holder?.txtShakeCount?.text = "0"
                 holder?.txtDescription?.text = "Last handshake \u221E mins ago"
             }
-            holder?.imgProfile?.setImageResource(R.drawable.ic_empty_profile2)
+            holder?.imgProfile?.setImageResource(R.drawable.mystery2)
 
             holder?.itemView?.setOnClickListener {}
 
