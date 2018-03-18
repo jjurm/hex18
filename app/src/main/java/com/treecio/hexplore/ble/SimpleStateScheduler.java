@@ -34,14 +34,14 @@ public class SimpleStateScheduler extends StateScheduler {
             Random rand = new Random();
             while (!Thread.interrupted()) {
                 try {
-                    // Put the device in broadcast mode
+                    /*// Put the device in broadcast mode
                     states[1].transitionOut();
                     states[0].transitionIn();
                     Thread.sleep(3 * BleConfig.TIME_UNIT);
                     // Put the device in discovery mode
                     states[0].transitionOut();
                     states[1].transitionIn();
-                    Thread.sleep(1 * BleConfig.TIME_UNIT);
+                    Thread.sleep(1 * BleConfig.TIME_UNIT);*/
                     // In broadcast again
                     states[1].transitionOut();
                     states[0].transitionIn();
@@ -51,7 +51,7 @@ public class SimpleStateScheduler extends StateScheduler {
                     states[1].transitionIn();
 
                     // Add a random offset to prevent devices from never finding eachother when their cycles line up
-                    Thread.sleep((long) (1 * BleConfig.TIME_UNIT * rand.nextDouble()));
+                    Thread.sleep((long) ((2 * rand.nextDouble() + 1) * BleConfig.TIME_UNIT));
                 } catch (InterruptedException e) {
                     // Stop both states when interrupted
                     states[0].transitionOut();

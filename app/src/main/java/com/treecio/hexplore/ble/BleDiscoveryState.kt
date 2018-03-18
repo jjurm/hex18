@@ -5,10 +5,12 @@ import android.bluetooth.le.*
 import android.content.Context
 import android.os.ParcelUuid
 import android.widget.Toast
+import com.treecio.hexplore.db.UsersReloadNeededEvent
 import com.treecio.hexplore.model.User
 import com.treecio.hexplore.network.NetworkClient
 import com.treecio.hexplore.notification.NotificationBuilder
 import com.treecio.hexplore.utils.toHexString
+import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import java.util.*
 
@@ -85,6 +87,7 @@ class BleDiscoveryState(context: Context) : BleAbstractState(context) {
         }
         user.lastHandshake = now
         user.save()
+        EventBus.getDefault().post(UsersReloadNeededEvent())
 
         // fetch facebook data
         if (newUser) {

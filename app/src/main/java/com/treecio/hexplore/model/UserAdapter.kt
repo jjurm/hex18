@@ -16,27 +16,49 @@ import java.util.*
 
 const val USER_ID = "com.treecio.hexplore.MESSAGE"
 
-class UserAdapter(private val userList:FlowQueryList<User>): RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter(private val userList:FlowQueryList<User>,
+                  private val hiddenUserList:FlowQueryList<User>): RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+
+
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 
-        val user = userList[position]!!
-        holder?.txtName?.text = user.name ?: "Unknown"
-        holder?.txtShakeCount?.text = user.handshakeCount.toString()
-        val mins = (Date().time - (user.lastHandshake?.time ?: 0L)) / 60_000
-        holder?.txtDescription?.text = "Last handshake $mins mins ago"
-        Picasso.get().load(user.profilePhoto).into(holder?.imgProfile)
+        if (position < userList.size) {
+
+            val user = userList[position]!!
+            holder?.txtName?.text = user.name ?: "Unknown"
+            holder?.txtShakeCount?.text = user.handshakeCount.toString()
+            val mins = (Date().time - (user.lastHandshake?.time ?: 0L)) / 60_000
+            holder?.txtDescription?.text = "Last handshake $mins mins ago"
+            Picasso.get().load(user.profilePhoto).into(holder?.imgProfile)
 
 
-        holder?.itemView?.setOnClickListener{
-            view ->
-            run {
-                val intent = Intent(view.context, ProfileActivity::class.java).apply {
-                    putExtra(USER_ID, userList[position]?.shortId?.fromHexStringToByteArray())
+            holder?.itemView?.setOnClickListener { view ->
+                run {
+                    val intent = Intent(view.context, ProfileActivity::class.java).apply {
+                        putExtra(USER_ID, userList[position]?.shortId?.fromHexStringToByteArray())
+                    }
+
+                    view.context.startActivity(intent)
                 }
-
-                view.context.startActivity(intent)
             }
+        } else {
+
+            val potentialUser = hiddenUserList.maxBy { it.handshakeCount }
+
+            holder?.txtName?.text = "(next person)"
+            if (potentialUser != null) {
+                holder?.txtShakeCount?.text = potentialUser.handshakeCount.toString()
+                val mins = (Date().time - (potentialUser.lastHandshake?.time ?: 0L)) / 60_000
+                holder?.txtDescription?.text = "Last handshake $mins mins ago"
+            } else {
+                holder?.txtShakeCount?.text = "0"
+                holder?.txtDescription?.text = "Last handshake \u221E mins ago"
+            }
+            holder?.imgProfile?.setImageResource(R.drawable.ic_empty_profile2)
+
+            holder?.itemView?.setOnClickListener {}
+
         }
     }
 
@@ -46,7 +68,7 @@ class UserAdapter(private val userList:FlowQueryList<User>): RecyclerView.Adapte
     }
 
     override fun getItemCount(): Int {
-        return userList.size
+        return userList.size + 1
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {

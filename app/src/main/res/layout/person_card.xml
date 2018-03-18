@@ -16,7 +16,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/grad_bg" />
+                android:src="@drawable/grad_bg"
+                android:background="@color/cardview_dark_background"/>
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/linearLayout"
@@ -36,17 +37,29 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="48dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_handshake_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
                 <TextView
                     android:id="@+id/person_card_shake_count"
-                    android:layout_width="wrap_content"
+                    android:layout_width="32dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:textAlignment="textEnd"
                     android:layout_marginTop="8dp"
                     android:hint="72"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
                 <TextView
                     android:id="@+id/person_card_description"

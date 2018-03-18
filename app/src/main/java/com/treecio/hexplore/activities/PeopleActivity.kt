@@ -27,6 +27,7 @@ import org.greenrobot.eventbus.ThreadMode
 class PeopleActivity : BaseActivity() {
 
     private var usersList: FlowQueryList<User>? = null
+    private var hiddenUsersList: FlowQueryList<User>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,15 +47,24 @@ class PeopleActivity : BaseActivity() {
                 .and(User_Table.handshakeCount.greaterThanOrEq(BleConfig.HANDSHAKE_TARGET))
                 .flowQueryList()
 
+        hiddenUsersList = SQLite.select().from(User::class.java)
+                .where(User_Table.name.isNotNull)
+                .and(User_Table.handshakeCount.lessThan(BleConfig.HANDSHAKE_TARGET))
+                .flowQueryList()
+
         rv.setHasFixedSize(true)
         val llm = LinearLayoutManager(this)
         rv.layoutManager = llm
 
-        val adapter = UserAdapter(usersList!!)
+        val adapter = UserAdapter(usersList!!, hiddenUsersList!!)
         rv.adapter = adapter
         usersList!!.addOnCursorRefreshListener {
             rv.adapter.notifyDataSetChanged()
         }
+        hiddenUsersList!!.addOnCursorRefreshListener {
+            rv.adapter.notifyDataSetChanged()
+        }
+
 
         val intent = Intent(this, BleService::class.java)
         intent.putExtra(BleService.EXTRA_ACTION, BleService.ACTION_START)
@@ -69,6 +79,7 @@ class PeopleActivity : BaseActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: UsersReloadNeededEvent) {
         usersList!!.refreshAsync() // this will trigger the OnCursorRefreshListener event
+        hiddenUsersList!!.refreshAsync()
     }
 
     public override fun onStart() {

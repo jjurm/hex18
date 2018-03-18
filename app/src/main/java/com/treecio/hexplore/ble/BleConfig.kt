@@ -14,7 +14,7 @@ object BleConfig {
 
     const val TIME_UNIT = 700
 
-    val thresholdDateLambda: Calendar.() -> Unit = { add(Calendar.SECOND, -30) }
+    val thresholdDateLambda: Calendar.() -> Unit = { add(Calendar.SECOND, -12) }
 
     val HANDSHAKE_TARGET = 3
 
