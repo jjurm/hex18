@@ -106,6 +106,11 @@ class NetworkClient(val context: Context) {
                 facebookToken.userId, facebookToken.token)
         post(ENDPOINT_ADDUSER, obj, AddUserResponse::class.java, { response ->
             Preferences.saveLocalUserId(context, response.user_id)
+            Preferences.saveLocalName(context, response.name ?: "No name")
+            Preferences.saveLocalPhotoUrl(context, response.image_url
+                    ?: "https://images-na.ssl-images-amazon.com/images/I/51zLZbEVSTL._SY355_.jpg")
+            Preferences.saveLocalOccupation(context, response.occupation ?: "")
+            Preferences.saveLocalBio(context, response.description ?: "")
             callback()
         })
     }
@@ -132,7 +137,11 @@ class NetworkClient(val context: Context) {
     )
 
     private class AddUserResponse(
-            val user_id: String
+            val user_id: String,
+            val name: String?,
+            val image_url: String?,
+            val occupation: String?,
+            val description: String?
     )
 
     private class ProfilesRequest(

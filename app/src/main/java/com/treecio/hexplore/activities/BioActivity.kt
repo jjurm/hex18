@@ -1,6 +1,7 @@
 package com.treecio.hexplore.activities
 
 import android.os.Bundle
+import com.squareup.picasso.Picasso
 import com.treecio.hexplore.R
 import com.treecio.hexplore.ble.Preferences
 import kotlinx.android.synthetic.main.activity_bio.*
@@ -23,6 +24,10 @@ class BioActivity() : BaseActivity() {
 
     private fun loadContent() {
 
+        val url = Preferences.getLocalPhotoUrl(this)
+        if (!url.isNullOrEmpty()) {
+            Picasso.get().load(url).into(imgProfile)
+        }
         txtName.text = Preferences.getLocalName(this) ?: "No name"
         editOccupation.setText(Preferences.getLocalOccupation(this))
         editBio.setText(Preferences.getLocalBio(this))
