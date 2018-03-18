@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso
 import com.treecio.hexplore.R
 import com.treecio.hexplore.activities.ProfileActivity
 import com.treecio.hexplore.utils.fromHexStringToByteArray
+import ru.egslava.blurredview.BlurredImageView
 import java.util.*
 
 const val USER_ID = "com.treecio.hexplore.MESSAGE"
@@ -32,6 +33,8 @@ class UserAdapter(private val userList:FlowQueryList<User>,
             holder?.txtDescription?.text = "Last handshake $mins mins ago"
             Picasso.get().load(user.profilePhoto).into(holder?.imgProfile)
 
+            holder?.imgProfile?.visibility = View.VISIBLE
+            holder?.imgProfileMystery?.visibility = View.GONE
 
             holder?.itemView?.setOnClickListener { view ->
                 run {
@@ -57,6 +60,9 @@ class UserAdapter(private val userList:FlowQueryList<User>,
             }
             holder?.imgProfile?.setImageResource(R.drawable.mystery2)
 
+            holder?.imgProfile?.visibility = View.GONE
+            holder?.imgProfileMystery?.visibility = View.VISIBLE
+
             holder?.itemView?.setOnClickListener {}
 
         }
@@ -81,6 +87,7 @@ class UserAdapter(private val userList:FlowQueryList<User>,
         val txtShakeCount = itemView.findViewById<TextView>(R.id.person_card_shake_count)
         val txtDescription = itemView.findViewById<TextView>(R.id.person_card_description)
         val imgProfile = itemView.findViewById<ImageView>(R.id.person_card_img)
+        val imgProfileMystery = itemView.findViewById<BlurredImageView>(R.id.person_card_img_mystery)
     }
 
 }

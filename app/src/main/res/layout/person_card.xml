@@ -11,13 +11,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/person_card_img"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/grad_bg"
-                android:background="@color/cardview_dark_background"/>
+                android:background="@color/cardview_dark_background"
+                />
+            <ru.egslava.blurredview.BlurredImageView
+                android:id="@+id/person_card_img_mystery"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/mystery2"
+                android:background="@color/cardview_dark_background"
+                app:radius="0.3"
+                app:keepOriginal="true"
+                app:downSampling="4"
+                android:visibility="gone"
+                />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/linearLayout"

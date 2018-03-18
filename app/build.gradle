@@ -25,6 +25,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        renderscriptTargetApi 22
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
@@ -71,6 +73,8 @@ dependencies {
 
     // EventBus
     implementation 'org.greenrobot:eventbus:3.1.1'
+
+    implementation 'ru.egslava:blurredview:1.0'
 }
 
 
