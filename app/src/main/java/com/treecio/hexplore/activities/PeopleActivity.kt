@@ -11,6 +11,7 @@ import com.treecio.hexplore.LoginActivity
 import com.treecio.hexplore.R
 import com.treecio.hexplore.ble.BleConfig
 import com.treecio.hexplore.ble.BleService
+import com.treecio.hexplore.ble.Preferences
 import com.treecio.hexplore.db.UsersReloadNeededEvent
 import com.treecio.hexplore.model.User
 import com.treecio.hexplore.model.UserAdapter
@@ -58,6 +59,11 @@ class PeopleActivity : BaseActivity() {
         val intent = Intent(this, BleService::class.java)
         intent.putExtra(BleService.EXTRA_ACTION, BleService.ACTION_START)
         startService(intent)
+
+
+        if (Preferences.getLocalOccupation(this).isNullOrEmpty()) {
+            startActivity(Intent(this, BioActivity::class.java))
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
