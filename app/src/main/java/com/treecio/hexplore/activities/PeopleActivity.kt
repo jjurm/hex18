@@ -7,10 +7,12 @@ import com.raizlabs.android.dbflow.list.FlowQueryList
 import com.raizlabs.android.dbflow.sql.language.SQLite
 import com.treecio.hexplore.LoginActivity
 import com.treecio.hexplore.R
+import com.treecio.hexplore.ble.BleConfig
 import com.treecio.hexplore.ble.BleService
 import com.treecio.hexplore.db.UsersReloadNeededEvent
 import com.treecio.hexplore.model.User
 import com.treecio.hexplore.model.UserAdapter
+import com.treecio.hexplore.model.User_Table
 import kotlinx.android.synthetic.main.activity_people.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -34,7 +36,10 @@ class PeopleActivity : BaseActivity() {
         /*supportActionBar?.displayOptions = ActionBar.DISPLAY_USE_LOGO or ActionBar.DISPLAY_SHOW_TITLE
         supportActionBar?.setLogo(R.mipmap.ic_launcher)*/
 
-        usersList = SQLite.select().from(User::class.java).flowQueryList()
+        usersList = SQLite.select().from(User::class.java)
+                .where(User_Table.name.isNotNull)
+                .and(User_Table.handshakeCount.greaterThanOrEq(BleConfig.HANDSHAKE_TARGET))
+                .flowQueryList()
 
         rv.setHasFixedSize(true)
         val llm = LinearLayoutManager(this)
