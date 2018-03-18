@@ -18,6 +18,7 @@ import com.treecio.hexplore.permission.PermissionCallback
 import com.treecio.hexplore.permission.PermissionFlow
 import com.treecio.hexplore.permission.PermissionFlowResult
 import kotlinx.android.synthetic.main.activity_login.*
+import timber.log.Timber
 import java.util.*
 
 class LoginActivity : AppCompatActivity(), PermissionCallback {
@@ -56,6 +57,7 @@ class LoginActivity : AppCompatActivity(), PermissionCallback {
             }
 
             override fun onError(exception: FacebookException) {
+                Timber.e(exception)
                 Toast.makeText(this@LoginActivity, "There was a problem", Toast.LENGTH_SHORT).show()
             }
         })

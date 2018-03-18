@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso
 import com.treecio.hexplore.R
 import com.treecio.hexplore.activities.ProfileActivity
 import com.treecio.hexplore.utils.fromHexStringToByteArray
+import java.util.*
 
 const val USER_ID = "com.treecio.hexplore.MESSAGE"
 
@@ -19,12 +20,12 @@ class UserAdapter(private val userList:FlowQueryList<User>): RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 
-
-        val user = userList[position]
-        holder?.txtName?.text = user?.name ?: "Unknown"
-        holder?.txtShakeCount?.text = user?.handshakeCount.toString()
-        holder?.txtDescription?.text = "No description yet"
-        Picasso.get().load(user?.profilePhoto).into(holder?.imgProfile)
+        val user = userList[position]!!
+        holder?.txtName?.text = user.name ?: "Unknown"
+        holder?.txtShakeCount?.text = user.handshakeCount.toString()
+        val mins = (Date().time - (user.lastHandshake?.time ?: 0L)) / 60_000
+        holder?.txtDescription?.text = "Last handshake $mins mins ago"
+        Picasso.get().load(user.profilePhoto).into(holder?.imgProfile)
 
 
         holder?.itemView?.setOnClickListener{
