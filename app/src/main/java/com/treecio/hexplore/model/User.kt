@@ -21,7 +21,6 @@ class User (
         @Column var occupation: String? = null,
         @Column var profileUrl: String? = null
 
-
 ) : BaseModel() {
 
     fun fromCursor(cursor: Cursor) {
