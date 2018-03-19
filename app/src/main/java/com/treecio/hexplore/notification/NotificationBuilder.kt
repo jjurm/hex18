@@ -50,6 +50,7 @@ class NotificationBuilder(private val context: Context) {
     }
 
     fun frequentPersonNotification(user: User) {
+        if (user.name == null) return
         val id = nextId()
         val builder = baseBuilder()
                 .setContentTitle("New connection nearby")

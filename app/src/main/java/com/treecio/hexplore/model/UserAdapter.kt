@@ -1,7 +1,6 @@
 package com.treecio.hexplore.model
 
 import android.content.Intent
-import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +11,9 @@ import com.raizlabs.android.dbflow.list.FlowQueryList
 import com.squareup.picasso.Picasso
 import com.treecio.hexplore.R
 import com.treecio.hexplore.activities.ProfileActivity
-import com.treecio.hexplore.ble.BleConfig
 import com.treecio.hexplore.utils.fromHexStringToByteArray
-import org.joda.time.LocalDateTime
 import ru.egslava.blurredview.BlurredImageView
 import java.util.*
-import kotlin.concurrent.timerTask
 
 const val USER_ID = "com.treecio.hexplore.MESSAGE"
 
@@ -40,7 +36,7 @@ class UserAdapter(private val userList:FlowQueryList<User>,
             Picasso.get().load(user.profilePhoto).into(holder?.imgProfile)
 
             holder?.imgProfile?.visibility = View.VISIBLE
-            holder?.imgProfileMystery?.visibility = View.GONE
+            holder?.imgProfileMystery?.visibility = View.INVISIBLE
 
             holder?.itemView?.setOnClickListener { view ->
                 run {
@@ -66,7 +62,7 @@ class UserAdapter(private val userList:FlowQueryList<User>,
             }
             holder?.imgProfile?.setImageResource(R.drawable.mystery2)
 
-            holder?.imgProfile?.visibility = View.GONE
+            holder?.imgProfile?.visibility = View.INVISIBLE
             holder?.imgProfileMystery?.visibility = View.VISIBLE
 
             holder?.itemView?.setOnClickListener {}
