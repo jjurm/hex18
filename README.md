@@ -42,6 +42,16 @@ We learned how to use technology to bring people together and create a better wo
 
 We hope that Hexplore will become a product used by many people around the world to connect people who can benefit from eachother.
 
+## Screenshots
+
 <img src="/screenshots/1.jpg?raw=true" alt="Screenshot 1" width="240"/> <img src="/screenshots/2.jpg?raw=true" alt="Screenshot 2" width="240"/>
 <img src="/screenshots/3.jpg?raw=true" alt="Screenshot 3" width="240"/> <img src="/screenshots/4.jpg?raw=true" alt="Screenshot 4" width="240"/>
 <img src="/screenshots/5.jpg?raw=true" alt="Screenshot 5" width="240"/>
+
+## Flyer
+
+<img src="/materials/flyer.png?raw=true" alt="Flyer" width="480"/>
+
+## Handout
+
+<img src="/materials/handout.png?raw=true" alt="Handout"/>
